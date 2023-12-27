@@ -75,8 +75,8 @@ export async function POST(req) {
 		//const formData = await req.formData();
 		const { cta } = await req.json();
 
-		const firstFile = "/tmp/lychee/out1.mp4";
-		const secondFile = "/tmp/lychee/out2.mp4";
+		const firstFile = "./output-outro/out1.mp4";
+		const secondFile = "./output-outro/out2.mp4";
 		const finalFile = "./output-outro/final.mp4";
 
 		await gen1({ text: cta, outputFile: firstFile });
