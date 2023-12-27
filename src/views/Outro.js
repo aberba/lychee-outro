@@ -14,6 +14,7 @@ import styled from "styled-components";
 import useForm from "@app/hooks/useForm";
 import MessageText from "@app/layouts/MessageText";
 import { isEmpty } from "@app/functions";
+import Separator from "@app/layouts/Separator";
 
 const StyledWrapper = styled.section`
 	margin: 2rem auto;
@@ -28,7 +29,7 @@ const StyledSideBar = styled.aside`
 	border-left: 0.5px solid #c5c5c5;
 
 	p {
-		margin: 0 0 2rem 0;
+		margin: 0 0 2rem -1.5px;
 		padding: 0.5rem 1rem;
 		cursor: pointer;
 	}
@@ -53,6 +54,11 @@ const StyledKitNameRow = styled(Row)`
 		width: 150px;
 		font-weight: bold;
 	}
+`;
+
+const StyledLengthText = styled(Text)`
+	color: rgba(25, 28, 38, 0.7);
+	text-align: right;
 `;
 
 function VideoOutro() {
@@ -126,7 +132,33 @@ function VideoOutro() {
 				</StyledSideBar>
 
 				<StyledContent>
-					<Heading>Outro</Heading>
+					<Heading>
+						Outro <Spacer as="span" width={TOKENS.spacing.s8} />
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 16 16"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<circle cx="8" cy="8" r="7.5" stroke="black" />
+							<path
+								d="M8 4V7.55556"
+								stroke="#191C26"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+							<path
+								d="M8 11.1133H8.00889"
+								stroke="#191C26"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</Heading>
+
+					<Spacer height={TOKENS.spacing.s32} />
+
 					<InputRow>
 						<div>
 							<label htmlFor="selectCta">Call to action</label>
@@ -168,7 +200,10 @@ function VideoOutro() {
 								onChange={handleChange}
 								placeholder="The Mst Amazing Podcast Ever!"
 								maxLength="20"
-							></TextArea>
+							/>
+
+							<Spacer height={TOKENS.spacing.s4} />
+							<StyledLengthText>29/5000</StyledLengthText>
 						</div>
 					</InputRow>
 
@@ -177,10 +212,14 @@ function VideoOutro() {
 						{errors.textareaCta}
 					</MessageText>
 					<Spacer height={TOKENS.spacing.s32} />
-
-					<Button onClick={onSubmit}>Save</Button>
 				</StyledContent>
 			</Row>
+
+			<Spacer height={TOKENS.spacing.s128} />
+			<Separator />
+			<Spacer height={TOKENS.spacing.s32} />
+
+			<Button onClick={onSubmit}>Save</Button>
 		</StyledWrapper>
 	);
 }
