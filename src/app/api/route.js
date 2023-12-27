@@ -1,13 +1,6 @@
-import { resolve } from "styled-jsx/css";
-
-//import ffmpeg from "fluent-ffmpeg";
 var ffmpeg = require("fluent-ffmpeg");
 
 export async function GET(req) {
-	//const formData = await req.formData();
-	//const json = await req.json();
-
-	//console.log({ formData, json });
 	return Response.json({ data: "hello" });
 }
 
@@ -72,7 +65,6 @@ async function gen3({ firstFile, secondFile, outputFile }) {
 
 export async function POST(req) {
 	try {
-		//const formData = await req.formData();
 		const { cta } = await req.json();
 
 		const firstFile = "./output-outro/out1.mp4";
@@ -82,8 +74,6 @@ export async function POST(req) {
 		await gen1({ text: cta, outputFile: firstFile });
 		await gen2({ outputFile: secondFile });
 		await gen3({ firstFile, secondFile, outputFile: finalFile });
-
-		//ffmpeg -t 40 -f lavfi -i color=c=black:s=1280x720 -c:v libx265 output.mp4
 
 		return Response.json({ message: "Video processed successfully!" });
 	} catch (error) {
