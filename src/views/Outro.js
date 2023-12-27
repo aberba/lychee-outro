@@ -15,6 +15,7 @@ import useForm from "@app/hooks/useForm";
 import MessageText from "@app/layouts/MessageText";
 import { isEmpty } from "@app/functions";
 import Separator from "@app/layouts/Separator";
+import { useState } from "react";
 
 const StyledWrapper = styled.section`
 	margin: 2rem auto;
@@ -62,6 +63,7 @@ const StyledLengthText = styled(Text)`
 `;
 
 function VideoOutro() {
+	const [isLoading, setIsLoading] = useState(false);
 	const { values, errors, setValues, resetErrors, onSubmit } = useForm({
 		defaultValues: { textareaCta: "", selectCta: "0" },
 		callback,
@@ -81,11 +83,12 @@ function VideoOutro() {
 
 	async function callback({ textareaCta, selectCta }) {
 		resetErrors();
+		setIsLoading(true);
 
 		try {
 			const cta = !isEmpty(textareaCta) ? textareaCta : selectCta;
 
-			const res = fetch("/api", {
+			const res = await fetch("/api", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -94,9 +97,12 @@ function VideoOutro() {
 
 				body: JSON.stringify({ cta }),
 			});
-
-			console.log(res);
-		} catch (error) {}
+			const data = await res.json();
+			setIsLoading(false);
+			alert(data?.message);
+		} catch (error) {
+			alert("Error: " + error?.message);
+		}
 	}
 
 	function validate(values) {
@@ -145,14 +151,14 @@ function VideoOutro() {
 							<path
 								d="M8 4V7.55556"
 								stroke="#191C26"
-								stroke-linecap="round"
-								stroke-linejoin="round"
+								strokeLinecap="round"
+								strokeLinejoin="round"
 							/>
 							<path
 								d="M8 11.1133H8.00889"
 								stroke="#191C26"
-								stroke-linecap="round"
-								stroke-linejoin="round"
+								strokeLinecap="round"
+								strokeLinejoin="round"
 							/>
 						</svg>
 					</Heading>
@@ -219,7 +225,9 @@ function VideoOutro() {
 			<Separator />
 			<Spacer height={TOKENS.spacing.s32} />
 
-			<Button onClick={onSubmit}>Save</Button>
+			<Button disabled={isLoading} onClick={onSubmit}>
+				{isLoading ? "Saving..." : "Save"}
+			</Button>
 		</StyledWrapper>
 	);
 }

@@ -85,7 +85,7 @@ export async function POST(req) {
 
 		//ffmpeg -t 40 -f lavfi -i color=c=black:s=1280x720 -c:v libx265 output.mp4
 
-		return Response.json({ data: "hello" });
+		return Response.json({ message: "Video processed successfully!" });
 	} catch (error) {
 		console.error({ error });
 		return Response.json({ code: 500, message: "Server error" });
