@@ -1,0 +1,10 @@
+services:
+  your_container_name:
+    container_name: your_container_name
+    image: lychee-docker
+    # env_file: <<path to env file>>
+    ports:
+      - 5000:3000
+    command: npm run dev
+    volumes:
+      - ./app/output-outro:/tmp/output-outro
